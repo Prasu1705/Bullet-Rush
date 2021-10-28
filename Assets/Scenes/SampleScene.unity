@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 1496260475364808108, guid: e0750f3fdb6ada742b88385a1643a032, type: 3}
-  center: {x: 0.18, y: 0.47, z: 14.3}
+  center: {x: 0.18, y: 0.47, z: 8.4}
   size: {x: 25.8, y: 1, z: 15.6}
   player: {fileID: 0}
   enemyCount: 25
@@ -1387,7 +1387,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2229906064329660024}
-  rotationSpeed: 10
 --- !u!4 &2113906947
 Transform:
   m_ObjectHideFlags: 0
@@ -1415,8 +1414,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2375544359148175924, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
+      propertyPath: maxAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375544359148175924, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375544359148175924, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
+      propertyPath: maxAngleReset
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2375544359148175924, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
       propertyPath: aimManagerRight
@@ -1437,6 +1444,14 @@ PrefabInstance:
     - target: {fileID: 2375544359148175925, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
       propertyPath: projectileSpeed
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375544359338694960, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
+      propertyPath: maxAngle
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2375544359338694960, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
+      propertyPath: maxAngleReset
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2375544359338694960, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
       propertyPath: aimManagerLeft
@@ -1488,7 +1503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4469143966378747864, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -11
       objectReference: {fileID: 0}
     - target: {fileID: 4469143966378747864, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1526,6 +1541,18 @@ PrefabInstance:
       propertyPath: speed
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4469143966378747867, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
+      propertyPath: rotationSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4469143966378747867, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
+      propertyPath: aimManagerLeft
+      value: 
+      objectReference: {fileID: 1314842771}
+    - target: {fileID: 4469143966378747867, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
+      propertyPath: aimManagerRight
+      value: 
+      objectReference: {fileID: 1464103021}
     - target: {fileID: 4469143966378747871, guid: 4731f8394ba114e4da4bf42632d079ca, type: 3}
       propertyPath: m_Constraints
       value: 80

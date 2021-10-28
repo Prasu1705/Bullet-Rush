@@ -19,7 +19,7 @@ public class AimManagerRight : MonoBehaviour
     void Start()
     {
         StartCoroutine("EnemyList");
-        InvokeRepeating("ClosestEnemy", 2f, 0.95f);
+        InvokeRepeating("ClosestEnemy", 2f, 1.5f);
 
     }
     IEnumerator EnemyList()
@@ -52,7 +52,7 @@ public class AimManagerRight : MonoBehaviour
             {
                 range = dist;
                 closestEnemy = enemyGameObject;
-                PlayerManager.Instance.player.transform.rotation = Quaternion.Slerp(PlayerManager.Instance.player.transform.rotation, Quaternion.LookRotation(closestEnemy.transform.position - PlayerManager.Instance.player.transform.position), 200 * Time.deltaTime);
+                
             }
           
         }
@@ -65,6 +65,7 @@ public class AimManagerRight : MonoBehaviour
     {
         if (closestEnemy != null && LookAtEnemyRight.canShoot == true)
         {
+            //PlayerManager.Instance.player.transform.rotation = Quaternion.Slerp(PlayerManager.Instance.player.transform.rotation, Quaternion.LookRotation(closestEnemy.transform.position - PlayerManager.Instance.player.transform.position), 200 * Time.deltaTime);
             if (Time.time - lastfired > 1 / FireRate)
             {
                 lastfired = Time.time;
@@ -73,13 +74,6 @@ public class AimManagerRight : MonoBehaviour
                 bulletObject.SetActive(true);
                 float distance = closestEnemy.transform.position.x - bulletObject.transform.position.x;
                 Vector3 directionalVector = closestEnemy.transform.position - bulletObject.transform.position;
-
-                float v2 = projectileSpeed * projectileSpeed;
-                float v4 = v2 * v2;
-
-                float x = closestEnemy.transform.position.x;
-                float x2 = x * x;
-                float y = closestEnemy.transform.position.y;
 
                 float theta = 0.5f * Mathf.Asin((gravity * distance) / (projectileSpeed * projectileSpeed));
                 Vector3 releaseVector = (Quaternion.AngleAxis(theta * Mathf.Rad2Deg, -Vector3.forward) * directionalVector).normalized;
@@ -92,5 +86,6 @@ public class AimManagerRight : MonoBehaviour
 
 
         }
+
     }
 }

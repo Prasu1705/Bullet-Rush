@@ -111,7 +111,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 0
   m_CollisionDetection: 3
 --- !u!114 &-260195345777696077
 MonoBehaviour:
@@ -125,6 +125,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb6c1e48078a134a874a787a6a9fa2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1229.1
-  lastfired: 0
-  FireRate: 50

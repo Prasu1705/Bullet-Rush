@@ -6,27 +6,35 @@ public class Bullet : MonoBehaviour
 {
     private Rigidbody bulletRigidBody;
     //private AimManagerLeft aimManagerLeft;
-    public float speed;
+    //public float speed;
     
-    public float lastfired, FireRate = 1f;
+    //public float lastfired, FireRate = 1f;
     // Start is called before the first frame update
     void Start()
     {
         //aimManagerLeft = GetComponentInChildren<AimManagerLeft>();
         bulletRigidBody = this.GetComponent<Rigidbody>();
+        
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine("BulletPoolReturn");
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine("BulletPoolReturn");
+    }
     // Update is called once per frame
     void Update()
     {
         //this.transform.position += this.transform.forward * speed;
 
-        //if (Time.time - lastfired > 1 / FireRate)
-        //{
-        //    lastfired = Time.time;
+       
+
             
-        //    gameObject.SetActive(false);
-        //}
+  
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -41,5 +49,10 @@ public class Bullet : MonoBehaviour
         {
             //gameObject.SetActive(false);
         }
+    }
+    IEnumerator BulletPoolReturn()
+    {
+        yield return new WaitForSeconds(1);
+        gameObject.SetActive(false);
     }
 }

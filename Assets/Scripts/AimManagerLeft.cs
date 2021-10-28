@@ -19,7 +19,7 @@ public class AimManagerLeft : MonoBehaviour
     void Start()
     {
         StartCoroutine("EnemyList");
-        InvokeRepeating("ClosestEnemy", 2f, 0.95f);
+        InvokeRepeating("ClosestEnemy", 2f, 1.5f);
     }
 
     IEnumerator EnemyList()
@@ -46,7 +46,7 @@ public class AimManagerLeft : MonoBehaviour
             {
                 range = dist;
                 closestEnemy = enemyGameObject;
-                PlayerManager.Instance.player.transform.rotation = Quaternion.Slerp(PlayerManager.Instance.player.transform.rotation, Quaternion.LookRotation(closestEnemy.transform.position - PlayerManager.Instance.player.transform.position), 200 * Time.deltaTime);
+               
             }
             
         }
@@ -59,6 +59,7 @@ public class AimManagerLeft : MonoBehaviour
     {
         if (closestEnemy != null && LookAtEnemyLeft.canShoot == true)
         {
+            //PlayerManager.Instance.player.transform.rotation = Quaternion.Slerp(PlayerManager.Instance.player.transform.rotation, Quaternion.LookRotation(closestEnemy.transform.position - PlayerManager.Instance.player.transform.position), 200 * Time.deltaTime);
             if (Time.time - lastfired > 1 / FireRate)
             {
 

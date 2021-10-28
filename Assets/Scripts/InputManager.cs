@@ -10,7 +10,7 @@ public class InputManager : MonoBehaviour
     public GameObject player;
     public delegate void InputController(InputControls input);
     public event InputController OnClickDrag;
-    public float rotationSpeed;
+    //public float rotationSpeed;
 
     private InputControls inputControls;
     private bool isRotating;

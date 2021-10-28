@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     private GameObject DestroyEffect;
     private AimManagerLeft aimManagerLeft;
     private AimManagerRight aimManagerRight;
-    float enemyRotationSpeed = 1.5f, enemyMoveSpeed = 1.5f;
+    float enemyRotationSpeed = 1.7f, enemyMoveSpeed = 1.7f;
     // Start is called before the first frame update
     void Start()
     {

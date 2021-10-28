@@ -25,6 +25,9 @@ public class LookAtEnemyLeft : MonoBehaviour
     public bool leftArm = false;
     public bool rightArm = false;
 
+    private Vector3 offset;
+    private float angle;
+
     public static bool canShoot = false;
 
     private bool canShootLeft = false;
@@ -50,10 +53,7 @@ public class LookAtEnemyLeft : MonoBehaviour
                 
 
             }
-            //if (canShootLeft == false && canShootRight == false)
-            //{
-            //    canShoot = false;
-            //}
+          
         }
 
         if (enemy != null && EnemyInFieldOfView(fovStartPoint))
@@ -102,9 +102,9 @@ public class LookAtEnemyLeft : MonoBehaviour
             if (leftArm)
             {
                 // make arms point at the ground
-                //Quaternion targetRotation = Quaternion.Euler(90, 0, 0);
-                //transform.localRotation = Quaternion.RotateTowards(
-                //transform.localRotation, targetRotation, Time.deltaTime * lookSpeed);
+                Quaternion targetRotation = Quaternion.Euler(90, 0, 0);
+                transform.localRotation = Quaternion.RotateTowards(
+                transform.localRotation, targetRotation, Time.deltaTime * lookSpeed);
                 if (leftArm)
                 {
                     canShootLeft = false;
@@ -115,6 +115,7 @@ public class LookAtEnemyLeft : MonoBehaviour
 
             else
             {
+                
                 // return to initial local angle
                 Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
                 transform.localRotation = Quaternion.RotateTowards(
