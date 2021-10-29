@@ -12,12 +12,18 @@ public class EnemySpawn : MonoBehaviour
     public int enemyCount;
 
     private GameObject cloneEnemy;
+
+    private void Awake()
+    {
+        spawnedEnemyList = new List<GameObject>();
+        StartCoroutine(SpawnEnemy(enemyCount));
+    }
     // Start is called before the first frame update
     void Start()
     {
-            spawnedEnemyList = new List<GameObject>();
+            
            // cloneEnemy = enemyPrefab;
-            StartCoroutine(SpawnEnemy(enemyCount));
+            
     }
 
     // Update is called once per frame

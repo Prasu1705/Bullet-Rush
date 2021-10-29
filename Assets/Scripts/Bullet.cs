@@ -27,27 +27,12 @@ public class Bullet : MonoBehaviour
         StopCoroutine("BulletPoolReturn");
     }
     // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter(Collider other)
     {
-        //this.transform.position += this.transform.forward * speed;
-
-       
-
-            
-  
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.collider.CompareTag("Enemy"))
+        if(other.CompareTag("Enemy"))
         {
-          
-            gameObject.SetActive(false);
-            
-        }
-        else
-        {
-            //gameObject.SetActive(false);
+          gameObject.SetActive(false);  
         }
     }
     IEnumerator BulletPoolReturn()

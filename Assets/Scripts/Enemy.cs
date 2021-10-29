@@ -6,15 +6,15 @@ public class Enemy : MonoBehaviour
 {
     public GameObject player;
     private GameObject DestroyEffect;
-    private AimManagerLeft aimManagerLeft;
-    private AimManagerRight aimManagerRight;
+    private LeftHandFindAndShootNearestEnemy LeftHandFindAndShootNearestEnemy;
+    private RightHandFindAndShootNearestEnemy RightHandFindAndShootNearestEnemy;
     float enemyRotationSpeed = 1.7f, enemyMoveSpeed = 1.7f;
     // Start is called before the first frame update
     void Start()
     {
         player = PlayerManager.Instance.player;
-        aimManagerLeft = FindObjectOfType<AimManagerLeft>();
-        aimManagerRight = FindObjectOfType<AimManagerRight>();
+        LeftHandFindAndShootNearestEnemy = FindObjectOfType<LeftHandFindAndShootNearestEnemy>();
+        RightHandFindAndShootNearestEnemy = FindObjectOfType<RightHandFindAndShootNearestEnemy>();
     }
 
     // Update is called once per frame
@@ -22,25 +22,35 @@ public class Enemy : MonoBehaviour
     {
         if (gameObject.CompareTag("Enemy"))
         {
-           
-                gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(PlayerManager.Instance.player.transform.position - gameObject.transform.position), enemyRotationSpeed * Time.deltaTime);
-                gameObject.transform.position += gameObject.transform.forward * enemyMoveSpeed * Time.deltaTime;
+
+            EnemyRotation();
+            EnemyMove();
          
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.collider.CompareTag("bullet"))
+        if(other.CompareTag("bullet"))
         {
-            //DestroyEffect = ObjectPoolManager.PoolInstance.GetPooledObject("ParticleEffect");
-            // DestroyEffect.transform.position = gameObject.transform.position;
-            aimManagerLeft.enemiesList.Remove(gameObject);
-            aimManagerRight.enemiesList.Remove(gameObject);
-            gameObject.SetActive(false);
-            //DestroyEffect.SetActive(true);
-      
-            //aimManager.enemiesList.Remove(gameObject);
+            EnemyKill();
         }
+    }
+
+    void EnemyRotation()
+    {
+        gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, Quaternion.LookRotation(PlayerManager.Instance.player.transform.position - gameObject.transform.position), enemyRotationSpeed * Time.deltaTime);
+    }
+
+    void EnemyMove()
+    {
+        gameObject.transform.position += gameObject.transform.forward * enemyMoveSpeed * Time.deltaTime;
+    }
+
+    void EnemyKill()
+    {
+        LeftHandFindAndShootNearestEnemy.enemiesList.Remove(gameObject);
+        RightHandFindAndShootNearestEnemy.enemiesList.Remove(gameObject);
+        gameObject.SetActive(false);
     }
 }

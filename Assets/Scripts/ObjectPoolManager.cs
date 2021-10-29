@@ -21,11 +21,6 @@ public class ObjectPoolManager : MonoBehaviour
     void Awake()
     {
         PoolInstance = this;
-    }
-
-    // Use this for initialization
-    void Start()
-    {
         pooledObjects = new List<GameObject>();
         foreach (ObjectPoolItem item in itemsToPool)
         {
@@ -36,6 +31,12 @@ public class ObjectPoolManager : MonoBehaviour
                 pooledObjects.Add(obj);
             }
         }
+    }
+
+    // Use this for initialization
+    void Start()
+    {
+      
     }
 
     public GameObject GetPooledObject(string tag)

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     private Vector3 mouseStartPos, mouseCurrentPos, dragDirection;
-    public AimManagerLeft aimManagerLeft;
-    public AimManagerRight aimManagerRight;
+    public LeftHandFindAndShootNearestEnemy LeftHandFindAndShootNearestEnemy;
+    public RightHandFindAndShootNearestEnemy RightHandFindAndShootNearestEnemy;
     public GameObject nearestEnemy;
     public float speed;
     private float angle;
@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Rotate();
+        PlayerRotation();
     }
     // Update is called once per frame
     void ClickDragControls(InputControls inputControls)
@@ -35,40 +35,37 @@ public class Player : MonoBehaviour
                 mouseCurrentPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 mouseCurrentPos.y = transform.position.y;
                 dragDirection = mouseCurrentPos - mouseStartPos;
-                PlayerManager.Instance.player.transform.position += dragDirection * Time.deltaTime * speed;
-                if (dragDirection.magnitude > 0.3f)
-                {
-                    angle = Mathf.Atan2(dragDirection.x, dragDirection.z) * Mathf.Rad2Deg;                  
-                }
+                PlayerMove();
+                CalculateDragDirectionAngle();
                 break;
             case InputControls.RELEASE:
                 break;
         }
     }
 
-    void Rotate()
+    void PlayerRotation()
     {
-        if(aimManagerLeft.closestEnemy == null && aimManagerRight.closestEnemy == null)
+        if(LeftHandFindAndShootNearestEnemy.closestEnemy == null && RightHandFindAndShootNearestEnemy.closestEnemy == null)
         {
             PlayerManager.Instance.player.transform.rotation = Quaternion.Lerp(PlayerManager.Instance.player.transform.rotation, Quaternion.AngleAxis(angle, Vector3.up), Time.deltaTime * rotationSpeed);
         }
-        else if(aimManagerLeft.closestEnemy != null && aimManagerRight.closestEnemy == null)
+        else if(LeftHandFindAndShootNearestEnemy.closestEnemy != null && RightHandFindAndShootNearestEnemy.closestEnemy == null)
         {
-            offset = aimManagerLeft.closestEnemy.transform.position - transform.position;
+            offset = LeftHandFindAndShootNearestEnemy.closestEnemy.transform.position - transform.position;
             angle =  Mathf.Atan2(offset.x, offset.z) * Mathf.Rad2Deg;
 
-            if (Vector3.Distance(transform.position, aimManagerLeft.closestEnemy.transform.position) < 10)
+            if (Vector3.Distance(transform.position, LeftHandFindAndShootNearestEnemy.closestEnemy.transform.position) < 10)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.up), Time.deltaTime * rotationSpeed);
             }
 
         }
-        else if (aimManagerLeft.closestEnemy == null && aimManagerRight.closestEnemy != null)
+        else if (LeftHandFindAndShootNearestEnemy.closestEnemy == null && RightHandFindAndShootNearestEnemy.closestEnemy != null)
         {
-            offset = aimManagerRight.closestEnemy.transform.position - transform.position;
+            offset = RightHandFindAndShootNearestEnemy.closestEnemy.transform.position - transform.position;
             angle = Mathf.Atan2(offset.x, offset.z) * Mathf.Rad2Deg;
 
-            if (Vector3.Distance(transform.position, aimManagerRight.closestEnemy.transform.position) < 10)
+            if (Vector3.Distance(transform.position, RightHandFindAndShootNearestEnemy.closestEnemy.transform.position) < 10)
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.up), Time.deltaTime * rotationSpeed);
             }
@@ -76,10 +73,10 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (Vector3.Distance(transform.position, aimManagerLeft.closestEnemy.transform.position) < 20 && Vector3.Distance(transform.position, aimManagerRight.closestEnemy.transform.position) < 20)
+            if (Vector3.Distance(transform.position, LeftHandFindAndShootNearestEnemy.closestEnemy.transform.position) < 20 && Vector3.Distance(transform.position, RightHandFindAndShootNearestEnemy.closestEnemy.transform.position) < 20)
             {
 
-                var commonPoint = aimManagerRight.closestEnemy.transform.position + aimManagerLeft.closestEnemy.transform.position;
+                var commonPoint = RightHandFindAndShootNearestEnemy.closestEnemy.transform.position + LeftHandFindAndShootNearestEnemy.closestEnemy.transform.position;
                 commonPoint /= 2;
 
                 offset = commonPoint - transform.position;
@@ -89,6 +86,18 @@ public class Player : MonoBehaviour
                 transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.up), Time.deltaTime * rotationSpeed);
 
             }
+        }
+    }
+    void PlayerMove()
+    {
+        PlayerManager.Instance.player.transform.position += dragDirection * Time.deltaTime * speed;
+    }
+
+    void CalculateDragDirectionAngle()
+    {
+        if (dragDirection.magnitude > 0.3f)
+        {
+            angle = Mathf.Atan2(dragDirection.x, dragDirection.z) * Mathf.Rad2Deg;
         }
     }
 }
